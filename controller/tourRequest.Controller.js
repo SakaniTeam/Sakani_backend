@@ -1,8 +1,6 @@
 const { validationResult } = require('express-validator');
 let Tour = require('../models/tourrequest.model');
 
-// const { validationResult } = require('express-validator');
-
 const addTour = async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -21,21 +19,23 @@ const addTour = async (req, res) => {
 };
 const updateTour = async (req, res) => {
   try {
-    const tourId = req.params.reqId;
-
-    const updateTour = await Tour.findByIdAndUpdate(tourId, { $set: { ...req.body } });
-    if (!updateTour) {
-      return res.status(400).json({ massage: "tour not found" });
+    const tourId = req.params.tourId;
+    const tour = await Tour.findById(tourId);
+    if (!tour) {
+      return res.status(404).json({ message: "Tour not found" });
     }
 
-    res.status(200).json(updateTour);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const updatedTourData = req.body;
+    Object.assign(tour, updatedTourData);
+    await tour.save();
+    return res.status(200).json({ message: "Tour updated successfully", tour });
   } catch (error) {
     console.error("Error updating tour:", error.message);
-    if (error.name === 'ValidationError') {
-      return res.status(400).json({ message: error.message });
-    } else {
-      return res.status(500).json({ message: "Internal server error" });
-    }
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 const getAllTours = async (req, res) => {
@@ -50,7 +50,7 @@ const getAllTours = async (req, res) => {
 };
 const deleteTour = async (req, res) => {
   try {
-    const tourId = req.params.reqId;
+    const tourId = req.params.tourId;
 
     let single_tour_req = await Tour.findByIdAndDelete(tourId)
     if (!single_tour_req) {
@@ -63,7 +63,7 @@ const deleteTour = async (req, res) => {
 };
 const getSingleTour = async (req, res) => {
   try {
-    const id = req.params.reqId;
+    const id = req.params.tourId;
     const tour = await Tour.findById(id);
     if (!tour) {
       return res.status(404).json({ message: "tour request not found" });

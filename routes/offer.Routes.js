@@ -6,6 +6,11 @@ const offerController = require('../controller/offers.Controller') ;
 
  router.route('/')
  .post(offerController.addOffer)
+
+
+
+
+ 
  .get( offerController.getAllOffer) ;
  
  router.route('/:offerId')

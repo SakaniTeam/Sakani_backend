@@ -19,7 +19,7 @@ app.use('/api/tours', tourRequestRouter);
 
 
 
-app.listen(4000, () => {
+app.listen(4000,'192.168.1.3', () => {
     console.log('listening on port 4000');
 })
 

@@ -14,6 +14,18 @@ router.route('/Res')
     .post(PropertyController.addResdential)
     .get(PropertyController.getResdential);
 
+
+
+
+
+
+
+
+
+
+
+    
+
 router.route('/Comm')
     .post(PropertyController.addCommercial)
     .get(PropertyController.getCommercial)
@@ -21,6 +33,7 @@ router.route('/Comm')
 
 router.route('/')
     .get(PropertyController.getallproperty);
+
 
 
 router.route('/:propertyId')

@@ -1,57 +1,56 @@
 const mongoose = require('mongoose');
 const propertySchema = mongoose.Schema({
-    /// kind  == rsedential and commercial
-    kind: {
-        type: String,
-        required: true
-    },
     type: {
         type: String,
-        required: true
+        required: false
+    },
+    status: {
+        type: String,
+        required: false
     },
     propertyaddress: {
         type: String,
-        required: true
+        required: false
     },
     price: {
         type: Number,
-        required: true
+        required: false
     },
-    PhoneNmber: {
+    phoneNumber: { // corrected typo
         type: Number,
-        required: true
+        required: false
     },
     moreDetails: {
         type: String,
-        required: true
+        required: false
     },
     rentDuration: {
         type: String,
-        required: true
+        required: false
+    },
+    image: {
+        type: String ,
+        required : false 
+    },
+    longitude: {
+        type: Number,
+        required: false
+    },
+    latitude: {
+        type: Number,
+        required: false
     }
-    // ,
-    // photoUplouded: {
-    //     data: Buffer,  // Buuffer : Store the image as binary data
-    //     contentType: String, // Store the content type (e.g., image/jpeg, image/png)
-    // },
-    // location: {
-    //     longitude: {
-    //         type: Number,
-    //         required: true
-    //     },
-    //     latitude: {
-    //         type: Number,
-    //         required: true
-    //     }
-   //}
-})
+
+}, { timestamps: true });
+
+
 
 const Resdential = mongoose.model('Resdential', propertySchema);
 const Commercial = mongoose.model('Commercial', propertySchema);
 const Property = mongoose.model('Property', propertySchema);
 module.exports = {
-    Resdential ,
-     Commercial ,
-     Property
+    Resdential,
+    Commercial,
+    Property
 };
 

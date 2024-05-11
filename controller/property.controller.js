@@ -76,6 +76,7 @@ const getCommercial = async (req, res) => {
         const properties = await Commercial.find();
         res.json(properties);
     } catch (err) {
+
         res.status(500).json({ msg: 'Server error' });
     }
 }

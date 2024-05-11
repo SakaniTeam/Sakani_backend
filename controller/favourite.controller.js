@@ -27,10 +27,9 @@ const getSingleFavourite = async (req, res) => {
             return res.status(404).json({ message: "The Property you are looking for is not found in your Favourites List " });
         }
         res.json(singleFavourite);
-
     } catch (error) {
         return res.status(404).json({
-            message: " Invalid ID"
+            message: error
         });
     }
 
